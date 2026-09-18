@@ -1,0 +1,8 @@
+(() => {
+  const target=document.getElementById('toolDetail'); if(!target)return;
+  const id=new URLSearchParams(location.search).get('id')||TOOL_DATA[0].id;
+  const tool=TOOL_DATA.find(t=>t.id===id);
+  if(!tool){target.innerHTML='<div class="content-card"><h2>Tool not found</h2><p>The requested tool is not in the current catalog.</p><a class="btn btn-primary" href="tools.html">Back to Tools</a></div>';return;}
+  document.title=`${tool.name} — ToolVault`;
+  target.innerHTML=`<div class="tool-detail-hero"><div class="tool-logo detail-logo ${tool.id}-logo">${tool.name.charAt(0)}</div><div><div class="detail-kicker"><span class="tool-category-badge">${tool.categoryLabel}</span>${tool.featured?'<span class="tool-category-badge">Featured</span>':''}</div><h1 class="detail-title">${tool.name}</h1><p class="detail-description">${tool.description}</p><div class="detail-actions"><a class="btn btn-primary affiliate-link" href="${tool.affiliateUrl||'#'}" data-affiliate-url="${tool.affiliateUrl||''}" data-tool-id="${tool.id}">Visit Official Site <span>↗</span></a><a class="btn btn-outline" href="tools.html">Browse Similar Tools</a></div><div class="detail-disclosure">Affiliate link status: ${tool.affiliateUrl?'configured':'not configured yet'}.</div></div></div><div class="detail-panels"><section class="detail-panel"><h2>What it can help with</h2><ul>${tool.features.map(x=>`<li>${x}</li>`).join('')}</ul></section><section class="detail-panel"><h2>Before you buy</h2><p>Check the official site for current pricing, eligibility, plan limits, free-trial terms, refund policy, and regional availability.</p></section></div>`;
+})();
